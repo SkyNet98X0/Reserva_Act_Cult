@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Reservas - Actividades Culturales</title>
+    <!-- CSS de Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .header {
+            background-color: #0d6efd;
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+        .form-container {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        .notificacion {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            max-width: 350px;
+            z-index: 1050;
+            display: none;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .confirmacion-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1060;
+        }
+        .confirmacion-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .confirmacion-acciones {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Encabezado -->
+    <div class="header text-center">
+        <h1>Gestión de Reservas para Actividades Culturales</h1>
+        <p>Bienestar Universitario</p>
+    </div>
+
+    <!-- Contenedor de notificaciones -->
+    <div id="notificacion" class="notificacion alert" role="alert"></div>
+
+    <!-- Confirmación modal -->
+    <div id="confirmacion-overlay" class="confirmacion-overlay">
+        <div class="confirmacion-container">
+            <h5 id="confirmacion-titulo">Confirmación</h5>
+            <p id="confirmacion-mensaje"></p>
+            <div class="confirmacion-acciones">
+                <button id="confirmacion-cancelar" class="btn btn-secondary">Cancelar</button>
+                <button id="confirmacion-aceptar" class="btn btn-primary">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Formulario de Registro -->
+        <div class="form-container">
+            <h3 id="form-title">Registro de Nueva Reserva</h3>
+            <form id="reserva-form">
+                <input type="hidden" id="id-edicion" value="">
+                
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre Completo:</label>
+                    <input type="text" class="form-control" id="nombre" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="matricula" class="form-label">Código de Matrícula:</label>
+                    <input type="text" class="form-control" id="matricula" required 
+                           placeholder="8 caracteres alfanuméricos">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="actividad" class="form-label">Tipo de Actividad:</label>
+                    <select class="form-select" id="actividad" required>
+                        <option value="">Seleccione una actividad</option>
+                        <option value="Teatro">Teatro</option>
+                        <option value="Taller de Dibujo">Taller de Dibujo</option>
+                        <option value="Club de Lectura">Club de Lectura</option>
+                        <option value="Excursión Cultural">Excursión Cultural</option>
+                        <option value="Danza">Danza</option>
+                        <option value="Música">Música</option>
+                    </select>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="fecha" class="form-label">Fecha:</label>
+                    <input type="date" class="form-control" id="fecha" required>
+                </div>
+                
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary" id="btn-guardar">Registrar Reserva</button>
+                    <button type="button" class="btn btn-secondary" id="btn-cancelar" style="display:none;">Cancelar</button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Tabla de Reservas -->
+        <div class="table-container">
+            <h3>Reservas Registradas</h3>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Matrícula</th>
+                            <th>Actividad</th>
+                            <th>Fecha</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-reservas">
+                        <!-- Aquí se cargan dinámicamente las reservas -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript de Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Archivo JavaScript personalizado -->
+    <script src="script.js"></script>
+</body>
+</html>
